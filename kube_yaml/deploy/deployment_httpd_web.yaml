@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-httpd-static-web
+spec:
+  selector:
+    matchLabels:
+      app: static-web
+      version: "1.2"
+      server: httpd
+      date: "2023-07"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: static-web
+        version: "1.2"
+        server: httpd
+        date: "2023-07"
+    spec:
+      containers:
+      - name: static-web
+        image: eldejr/httpd:1.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+      imagePullSecrets: 
+      - name : docker-pull-secret
+
