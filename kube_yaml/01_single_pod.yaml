@@ -1,0 +1,30 @@
+#01_single_pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod-nginx
+  labels:
+    app: web
+    app-type: nginx
+spec:
+  containers:
+  - name: container-name
+    image: nginx:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+      - containerPort: 80
+  - name: alpine
+    image: alpine:latest
+    args:
+    - /bin/sh
+    - -c
+    - "while true; do echo 'running';sleep 10; done;"
+    resources:
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+  imagePullSecrets: #도커 registry 사용
+  - name : docker-pull-secret

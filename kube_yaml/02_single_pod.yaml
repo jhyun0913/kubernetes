@@ -1,0 +1,25 @@
+#02_single_pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod-httpd
+  labels:
+    app: web
+    app-type: apache
+spec:
+  containers:
+  - name: apache-container
+    image: httpd:latest
+    env: #환경변수 지정 (hello : hi, username : tester)
+      - name: hello
+        value: hi
+      - name: username
+        value: tester
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+      - containerPort: 80
+  imagePullSecrets:
+  - name : docker-pull-secret
