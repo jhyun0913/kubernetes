@@ -1,0 +1,10 @@
+# kubectl apply -k ./exercise01/
+# 실행 순서
+resources:
+  - persistent_volume.yaml
+  - persistent_volume_claim.yaml
+  - deployment_main.yaml
+  - deployment_test.yaml
+  - service_main.yaml
+  - service_test.yaml
+  - ingress.yaml

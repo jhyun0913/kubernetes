@@ -1,0 +1,15 @@
+#PVC생성
+apiVersion: v1
+# 퍼시스턴트볼륨클레임(PersistentVolumeClaim)을 사용하도록 파드를 설정
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc1
+spec:
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-pv1
+  storageClassName: ""
