@@ -1,3 +1,4 @@
+# kustomization.yaml
 # kubectl apply -k ./exercise01/
 # 실행 순서
 resources:

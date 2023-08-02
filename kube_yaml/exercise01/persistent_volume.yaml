@@ -1,3 +1,4 @@
+# persistent_volume.yaml
 #PV생성
 apiVersion: v1
 kind: PersistentVolume

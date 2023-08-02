@@ -1,3 +1,4 @@
+#persistent_volume_claim.yaml
 #PVC생성
 apiVersion: v1
 # 퍼시스턴트볼륨클레임(PersistentVolumeClaim)을 사용하도록 파드를 설정

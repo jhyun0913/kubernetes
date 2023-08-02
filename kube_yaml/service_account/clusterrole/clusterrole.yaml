@@ -1,0 +1,10 @@
+apiVersion: rbac.authorization.k8s.io/v1 # Role Based Access Countrol
+kind: ClusterRole
+metadata:
+  name: cluster-user-role
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get","list","watch"]
+
+
