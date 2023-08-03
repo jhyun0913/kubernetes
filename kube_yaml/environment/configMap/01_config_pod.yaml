@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-pod
+  labels:
+    name: config-pod
+spec:
+  containers:
+  - name: config-pod
+    image: nginx:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    #환경 변수 이름/값 설정
+    env:
+      - name: ENV_NAME
+        value: "env value"
+      #환경변수 이름 설정 KEY
+      - name: key
+      #환경변수 값 찾기 => ConfigMap의 이름 config1, key 이름: key의 값을 사용
+        valueFrom:
+          configMapKeyRef:
+            name: config1
+            key: key
+      - name: VERSION
+      #환경변수 값 찾기 => ConfigMap의 이름 config1, key 이름: version의 값을 사용
+        valueFrom:
+          configMapKeyRef:
+            name: config1
+            key: version
+    #ConfigMap에 있는 모든 환경 변수 넣기
+    envFrom:
+    - configMapRef:
+       name: config1
+    #볼륨 이용해서 ConfigMap 사용
+    volumeMounts:
+    - name: config-volum
+      mountPath: /config
+      readOnly: true
+    - name: nginx-config-volume
+      mountPath: /etc/nginx/conf.d
+      readOnly: true
+  #key->filename, value-> file context
+  volumes:
+  - name: config-volum
+    configMap:
+      name: config1
+  - name: nginx-config-volume
+    configMap:
+      name: nginx-default-conf
+  imagePullSecrets: 
+  - name : docker-pull-secret
+
