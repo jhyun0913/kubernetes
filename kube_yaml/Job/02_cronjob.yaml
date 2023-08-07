@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mycronjob
+spec:
+  #          분 시 일 월 요일   
+  schedule: "10  *  *  *  * " 
+  successfulJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cronjob-container
+            image: alpine
+            command: ["/bin/sh","-c","echo 'Job Running'"]
+          # 실패시 재시작
+          restartPolicy: OnFailure
+
+
+# schedule
+# "10  *  *  *  * "   매시 모든일 모든요일 10분  
+# "*  *  *  *  * "    모두 * 일시 매분 간격
+# "/10  *  *  *  * "  10분 간격
+# "*  *  *  *  1-5 "  월요일~토요일 매분간격   0:일요일 ~ 6: 토요일
